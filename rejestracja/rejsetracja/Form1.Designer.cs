@@ -107,7 +107,6 @@
             this.txtMobileNumber.Name = "txtMobileNumber";
             this.txtMobileNumber.Size = new System.Drawing.Size(109, 20);
             this.txtMobileNumber.TabIndex = 7;
-            this.txtMobileNumber.TextChanged += new System.EventHandler(this.txtMobileNumber_TextChanged);
             // 
             // label3
             // 

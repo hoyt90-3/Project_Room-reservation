@@ -12,7 +12,7 @@ namespace rejsetracja
 {
     public partial class Form1 : Form
     {
-        SqlConnection sqlCon = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\Studia\projekt programowanie\Projekt rezerwacji\baza\customers.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+        SqlConnection sqlCon = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=G:\Projekt rezerwacji\baza\customers.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
         int CustomerId = 0;
         public Form1()
         {
@@ -156,9 +156,7 @@ namespace rejsetracja
 
         }
 
-        private void txtMobileNumber_TextChanged(object sender, EventArgs e)
-        {
+       
 
-        }
     }
 }
