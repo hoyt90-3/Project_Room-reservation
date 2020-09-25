@@ -12,63 +12,125 @@ namespace rejsetracja
 {
     public partial class Form1 : Form
     {
-        SqlConnection sqlCon = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=G:\Projekt rezerwacji\baza\customers.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+        SqlConnection sqlCon = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\git projekt\baza3\customers.mdf;Integrated Security=True;Connect Timeout=30;Integrated Security=True;Connect Timeout=30;User Instance=True");
         int CustomerId = 0;
         public Form1()
         {
             InitializeComponent();
         }
 
-   
+        List<Reservation> GetReservations(string roomNumber)
+        {
+            DataTable dt = new DataTable();
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            SqlCommand query = new SqlCommand("SELECT * FROM tb_rezerwacje WHERE RoomNumber = "+roomNumber, sqlCon);
+            SqlDataReader queryResult = query.ExecuteReader();
+            dt.Load(queryResult);
+            label8.Text = dt.Rows.Count.ToString();
+            List<Reservation> reservations = new List<Reservation>();
+            for(int i =0; i< dt.Rows.Count; i++)
+            {
+                DataRow dw = dt.Rows[i];
+                Reservation reservation;
+                reservation.customerID = int.Parse(dw[0].ToString());
+                reservation.name = dw[1].ToString();
+                reservation.surname = dw[2].ToString();
+                reservation.mobileNumber = dw[3].ToString();
+                reservation.bookingFrom = DateTime.Parse(dw[4].ToString());
+                reservation.bookingUntil = DateTime.Parse(dw[5].ToString());
+                reservation.roomNumber = dw[6].ToString();
+                reservations.Add(reservation);
 
-        private void btnSave_Click(object sender, EventArgs e)
+            }
+            
+            sqlCon.Close();
+            return reservations;
+        }
+
+        /*private void przycisk(object sender, EventArgs e)
         {
             try
             {
                 if (sqlCon.State == ConnectionState.Closed)
                     sqlCon.Open();
-                if (btnSave.Text == "Zapisz")
-                {
-                    SqlCommand sqlCmd = new SqlCommand("ReservationAddOrEdit", sqlCon);
-                    sqlCmd.CommandType = CommandType.StoredProcedure;
-                    sqlCmd.Parameters.AddWithValue("@mode", "Add");
-                    sqlCmd.Parameters.AddWithValue("@CustomerID", 0);
-                    sqlCmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Surname", txtSurname.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@MobileNumber", txtMobileNumber.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Booking_from", txtReservationFrom.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Booking_until", txtReservationUntil.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text.Trim());
-                    sqlCmd.ExecuteNonQuery();
-                    MessageBox.Show("Zapisano pomyślnie");
-                }
-                else
-                {
-                    SqlCommand sqlCmd = new SqlCommand("ReservationAddOrEdit", sqlCon);
-                    sqlCmd.CommandType = CommandType.StoredProcedure;
-                    sqlCmd.Parameters.AddWithValue("@mode", "Edit");
-                    sqlCmd.Parameters.AddWithValue("@CustomerID", CustomerId);
-                    sqlCmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Surname", txtSurname.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@MobileNumber", txtMobileNumber.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Booking_from", txtReservationFrom.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@Booking_until", txtReservationUntil.Text.Trim());
-                    sqlCmd.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text.Trim());
-                    sqlCmd.ExecuteNonQuery();
-                    MessageBox.Show("Zaktualizowano pomyślnie");
-                }
-                Reset();
-                FillDataGridView();
+                
             }
-            catch (Exception ex)
+            catch (Exception rx)
             {
-                MessageBox.Show(ex.Message, "Error");
-
+                MessageBox.Show(ex.Message, "błąd");
             }
             finally
             {
-                sqlCon.Close();
+                sqlCon.Close()
             }
+        }*/
+
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+            if (!RoomChecker.isRoomAvailable(
+                DateTime.Parse(txtReservationFrom.Text),
+                DateTime.Parse(txtReservationUntil.Text),
+                GetReservations(txtRoomNumber.Text)))
+            {
+                MessageBox.Show("W podanym terminie dany pokuj jest zajęty!");
+
+                label7.Text ="zajęte";
+            }
+            else
+            {
+                try
+                {
+                    if (sqlCon.State == ConnectionState.Closed)
+                        sqlCon.Open();
+                    if (btnSave.Text == "Zapisz")
+                    {
+                        SqlCommand sqlCmd = new SqlCommand("ReservationAddOrEdit", sqlCon);
+                        sqlCmd.CommandType = CommandType.StoredProcedure;
+                        sqlCmd.Parameters.AddWithValue("@mode", "Add");
+                        sqlCmd.Parameters.AddWithValue("@CustomerID", 0);
+                        sqlCmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@Surname", txtSurname.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@MobileNumber", txtMobileNumber.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@Booking_from", txtReservationFrom.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@Booking_until", txtReservationUntil.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text.Trim());
+                        sqlCmd.ExecuteNonQuery();
+                        MessageBox.Show("Zapisano pomyślnie");
+                    }
+                    else
+                    {
+                        SqlCommand sqlCmd = new SqlCommand("ReservationAddOrEdit", sqlCon);
+                        sqlCmd.CommandType = CommandType.StoredProcedure;
+                        sqlCmd.Parameters.AddWithValue("@mode", "Edit");
+                        sqlCmd.Parameters.AddWithValue("@CustomerID", CustomerId);
+                        sqlCmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@Surname", txtSurname.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@MobileNumber", txtMobileNumber.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@Booking_from", txtReservationFrom.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@Booking_until", txtReservationUntil.Text.Trim());
+                        sqlCmd.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text.Trim());
+                        sqlCmd.ExecuteNonQuery();
+                        MessageBox.Show("Zaktualizowano pomyślnie");
+                    }
+                    Reset();
+                    FillDataGridView();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "błąd");
+
+                }
+                finally
+                {
+                    sqlCon.Close();
+                }
+            }
+
+
+            
         }
 
         void FillDataGridView()
@@ -160,3 +222,4 @@ namespace rejsetracja
 
     }
 }
+
