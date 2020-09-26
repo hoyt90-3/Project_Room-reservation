@@ -10,15 +10,23 @@ using System.Data.SqlClient;
 
 namespace rejsetracja
 {
+    /// <summary>
+    /// Klasa okna głównego.
+    /// </summary>
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Połączenie z bazą danych 
+        /// </summary>
         SqlConnection sqlCon = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\git projekt\baza3\customers.mdf;Integrated Security=True;Connect Timeout=30;Integrated Security=True;Connect Timeout=30;User Instance=True");
         int CustomerId = 0;
         public Form1()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// fukcja do sprawdzania czz rezerwowany pokoj nie jest w danym terminie zarezerwowany 
+        /// </summary>
         List<Reservation> GetReservations(string roomNumber)
         {
             DataTable dt = new DataTable();
@@ -27,7 +35,6 @@ namespace rejsetracja
             SqlCommand query = new SqlCommand("SELECT * FROM tb_rezerwacje WHERE RoomNumber = "+roomNumber, sqlCon);
             SqlDataReader queryResult = query.ExecuteReader();
             dt.Load(queryResult);
-            label8.Text = dt.Rows.Count.ToString();
             List<Reservation> reservations = new List<Reservation>();
             for(int i =0; i< dt.Rows.Count; i++)
             {
@@ -48,25 +55,10 @@ namespace rejsetracja
             return reservations;
         }
 
-        /*private void przycisk(object sender, EventArgs e)
-        {
-            try
-            {
-                if (sqlCon.State == ConnectionState.Closed)
-                    sqlCon.Open();
-                
-            }
-            catch (Exception rx)
-            {
-                MessageBox.Show(ex.Message, "błąd");
-            }
-            finally
-            {
-                sqlCon.Close()
-            }
-        }*/
 
-
+        /// <summary>
+        /// Metoda opisująca przycisk zapisz oraz zauktualizuj 
+        /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
 
@@ -75,9 +67,8 @@ namespace rejsetracja
                 DateTime.Parse(txtReservationUntil.Text),
                 GetReservations(txtRoomNumber.Text)))
             {
-                MessageBox.Show("W podanym terminie dany pokuj jest zajęty!");
+                MessageBox.Show("W podanym terminie dany pokój jest zajęty!");
 
-                label7.Text ="zajęte";
             }
             else
             {
@@ -218,8 +209,10 @@ namespace rejsetracja
 
         }
 
-       
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
 

@@ -46,8 +46,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +81,7 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(12, 202);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(518, 170);
+            this.dataGridView.Size = new System.Drawing.Size(649, 230);
             this.dataGridView.TabIndex = 3;
             this.dataGridView.DoubleClick += new System.EventHandler(this.dataGridView_DoubleClick);
             // 
@@ -191,7 +189,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(271, 8);
+            this.txtSearch.Location = new System.Drawing.Point(415, 13);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(156, 20);
             this.txtSearch.TabIndex = 16;
@@ -199,7 +197,7 @@
             // btnSearch
             // 
             this.btnSearch.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnSearch.Location = new System.Drawing.Point(446, 3);
+            this.btnSearch.Location = new System.Drawing.Point(577, 10);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(84, 25);
             this.btnSearch.TabIndex = 17;
@@ -207,32 +205,12 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(392, 93);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "label7";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(392, 116);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "label8";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(542, 384);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.ClientSize = new System.Drawing.Size(669, 442);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.txtReservationUntil);
@@ -253,6 +231,7 @@
             this.Controls.Add(this.btnSave);
             this.Name = "Form1";
             this.Text = "Rezerwacja";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -279,8 +258,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
     }
 }
 
