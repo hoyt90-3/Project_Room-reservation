@@ -123,7 +123,9 @@ namespace rejsetracja
 
             
         }
-
+        // <summary>
+        /// Metoda odpowiadająca za wyswietlanie tabaeli w oknie 
+        /// </summary>
         void FillDataGridView()
         {
             if (sqlCon.State == ConnectionState.Closed)
@@ -137,7 +139,9 @@ namespace rejsetracja
             dataGridView.Columns[0].Visible = false;
             sqlCon.Close();
         }
-
+        // <summary>
+        /// Metoda opowiadajaca za kliknięcie przycisku szukaj
+        /// </summary>
         private void btnSearch_Click(object sender, EventArgs e)
         {
 
@@ -154,7 +158,9 @@ namespace rejsetracja
 
         }
 
-  
+        // <summary>
+        /// Metoda opowiadajaca za dwukrotnie kliknięcie w rekord wyświetlanej tabeli
+        /// </summary>
         private void dataGridView_DoubleClick(object sender, EventArgs e)
         {
             if (dataGridView.CurrentRow.Index != -1)
@@ -170,7 +176,9 @@ namespace rejsetracja
                 btnDelete.Enabled = true;
             }
         }
-
+        // <summary>
+        /// Metoda opisująca przycisk reset
+        /// </summary>
         void Reset()
         {
             txtName.Text = txtSurname.Text = txtMobileNumber.Text = txtReservationFrom.Text = 
@@ -179,13 +187,17 @@ namespace rejsetracja
             CustomerId = 0;
             btnDelete.Enabled = false ;
         }
-
+        // <summary>
+        /// Metoda opowiadajaca za kliknięcie przycisku reset
+        /// </summary>
         private void btnReset_Click(object sender, EventArgs e)
         {
             Reset();
             
         }
-
+        // <summary>
+        /// Metoda opowiadajaca za kliknięcie przycisku usuń
+        /// </summary>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
