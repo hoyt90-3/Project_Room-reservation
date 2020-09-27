@@ -25,8 +25,9 @@ namespace rejsetracja
             InitializeComponent();
         }
         /// <summary>
-        /// fukcja do sprawdzania czz rezerwowany pokoj nie jest w danym terminie zarezerwowany 
+        /// fukcja zwracjąca rezerwację z bazy danych
         /// </summary>
+        /// <param name="roomNumber">numer pokoju</param>
         List<Reservation> GetReservations(string roomNumber)
         {
             DataTable dt = new DataTable();
@@ -59,9 +60,11 @@ namespace rejsetracja
         /// <summary>
         /// Metoda opisująca przycisk zapisz oraz zauktualizuj 
         /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+            
             if (!RoomChecker.isRoomAvailable(
                 DateTime.Parse(txtReservationFrom.Text),
                 DateTime.Parse(txtReservationUntil.Text),
@@ -139,9 +142,11 @@ namespace rejsetracja
             dataGridView.Columns[0].Visible = false;
             sqlCon.Close();
         }
-        // <summary>
+        /// <summary>
         /// Metoda opowiadajaca za kliknięcie przycisku szukaj
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
 
@@ -158,9 +163,11 @@ namespace rejsetracja
 
         }
 
-        // <summary>
+        /// <summary>
         /// Metoda opowiadajaca za dwukrotnie kliknięcie w rekord wyświetlanej tabeli
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView_DoubleClick(object sender, EventArgs e)
         {
             if (dataGridView.CurrentRow.Index != -1)
@@ -176,7 +183,7 @@ namespace rejsetracja
                 btnDelete.Enabled = true;
             }
         }
-        // <summary>
+        /// <summary>
         /// Metoda opisująca przycisk reset
         /// </summary>
         void Reset()
@@ -187,17 +194,21 @@ namespace rejsetracja
             CustomerId = 0;
             btnDelete.Enabled = false ;
         }
-        // <summary>
+        /// <summary>
         /// Metoda opowiadajaca za kliknięcie przycisku reset
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             Reset();
             
         }
-        // <summary>
-        /// Metoda opowiadajaca za kliknięcie przycisku usuń
+        /// <summary>
+        /// Metoda opowiadajaca za kliknięcie przycisku usunięcia
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -220,8 +231,18 @@ namespace rejsetracja
 
 
         }
-
+   
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click_1(object sender, EventArgs e)
         {
 
         }
